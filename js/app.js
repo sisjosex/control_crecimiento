@@ -166,15 +166,15 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
         var dob;
 
         dob = new Date();
-        dob.setFullYear(2017);
+        dob.setFullYear(2015);
         dob.setMonth(7);
-        dob.setDate(4);
+        dob.setDate(8);
 
         limit = new Date();
 
         limit.setFullYear(2017);
-        limit.setMonth(7);
-        limit.setDate(6);
+        limit.setMonth(6);
+        limit.setDate(30);
 
         /*$scope.user = {
          dob: dob,
@@ -446,14 +446,13 @@ module.controller('Results', function ($scope, service) {
 
                 try {
                     result_data.M = parseFloat(result.row.SD0.replace(',', '.')).toFixed(1);
-
+                    //peso_para_la_edad
                     if (result.table_params.param_name == 'peso_para_la_talla') {
                         result_data.M = result_data.M + ' Kg';
                     } else if (result.table_params.param_name == 'talla_para_la_edad') {
                         result_data.M = result_data.M + ' cm';
                     } else if (result.table_params.param_name == 'peso_para_la_edad') {
                         result_data.M = result_data.M + ' Kg';
-                        result_data.text = '';
                     } else if (result.table_params.param_name == 'perimetro_cefalico') {
                         result_data.M = result_data.M + ' cm';
                     }
@@ -682,12 +681,12 @@ function evalParamsAICV(user, params, result) {
 
                     text = 'BAJO PESO GRAVE';
                     color = 'rojo';
-                } else if (params.weight >= 2 && params.weight <= 2.5) {
+                } else if (params.weight >= 2 && params.weight < 2.5) {
 
                     text = 'PROB DE ALIMENTACION O BAJO PESO';
                     color = 'naranja';
 
-                } else if (params.weight > 2.5) {
+                } else if (params.weight >= 2.5) {
 
                     text = 'SIN PROB DE ALIMENTACION NI BAJO PESO';
                     color = 'verde';
@@ -724,7 +723,7 @@ function evalParamsAICV(user, params, result) {
                 /*TODO tomar en cuenta el P/T, ahora esta usando el P/E*/
             } else if (params.ageDays > 60 && params.ageDays <= 365 * 5) {
 
-                if (result.result > 3) {
+                /*if (result.result > 3) {
 
                     text = 'OBESIDAD';
                     color = 'azul';
@@ -748,7 +747,7 @@ function evalParamsAICV(user, params, result) {
 
                     text = 'DESTNUTRICION AGUDA GRAVE Y/O ANEMIA GRAVE';
                     color = 'rojo';
-                }
+                }*/
             }
 
             break;
