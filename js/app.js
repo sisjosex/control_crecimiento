@@ -782,7 +782,7 @@ function evalParamsAICV(user, params, result) {
         case 'talla_para_la_edad':
         {
 
-            if ((params.ageMonths >= 6 && params.ageMonths <= 23)) {
+            if ((params.ageMonths >= 6 && params.ageMonths <= 24)) {
 
                 if (result.result >= -2) {
 
