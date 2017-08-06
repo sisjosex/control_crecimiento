@@ -210,12 +210,12 @@
                     </label>
 
                     <label class="text-label">Fecha de nacimiento:</label>
-                    <div id="date" type="date" class="text-input--underbar input-text date" ng-bind="user.dob_formatted" ng-click="showDatePicker1()"></div>
-                    <!--<input id="date" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.dob">-->
+                    <!--<div id="date" type="date" class="text-input&#45;&#45;underbar input-text date" ng-bind="user.dob_formatted" ng-click="showDatePicker1()"></div>-->
+                    <input id="date" type="date" class="text-input--underbar input-text date" ng-model="user.dob">
 
                     <label class="text-label">Fecha actual:</label>
-                    <div id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-bind="user.limit_formatted" ng-click="showDatePicker2()"></div>
-                    <!--<input id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.limit">-->
+                    <!--<div id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-bind="user.limit_formatted" ng-click="showDatePicker2()"></div>-->
+                    <input id="date_limit" type="date" class="text-input--underbar input-text date" ng-model="user.limit">
 
                     <label class="text-label">Peso (Kg.):</label>
                     <input type="number" class="text-input--underbar input-text" placeholder="Kg." ng-model="user.weight">
