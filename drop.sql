@@ -1,0 +1,14 @@
+DROP TABLE "nina_pc";
+DROP TABLE "nina_peso_edad";
+DROP TABLE "nina_peso_longitud";
+DROP TABLE "nina_peso_talla";
+DROP TABLE "nina_talla_edad";
+DROP TABLE "nino_pc";
+DROP TABLE "nino_peso_edad";
+DROP TABLE "nino_peso_longitud";
+DROP TABLE "nino_peso_talla";
+DROP TABLE "nino_talla_edad";
+DROP TABLE "varon_altura";
+DROP TABLE "mujer_altura";
+DROP TABLE "varon_mc";
+DROP TABLE "mujer_mc";
