@@ -52,6 +52,8 @@
     <plugin spec="https://github.com/apache/cordova-plugin-inappbrowser.git" source="git" />
     <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" source="git" />
     <plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
+    
+    <plugin name="https://github.com/Sharinglabs/cordova-plugin-datepicker.git" source="git" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
