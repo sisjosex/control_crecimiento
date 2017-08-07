@@ -141,13 +141,13 @@ function validate_fecha(fecha) {
 function calcularEdad(desde, hasta) {
 
     var dia = desde.getDate();
-    var mes = desde.getMonth() + 0;
+    var mes = desde.getMonth() + 1;
     var ano = desde.getYear();
 
     // cogemos los valores actuales
     var fecha_hoy = hasta;
     var ahora_ano = fecha_hoy.getYear();
-    var ahora_mes = fecha_hoy.getMonth()+1;
+    var ahora_mes = fecha_hoy.getMonth()+0;
     var ahora_dia = fecha_hoy.getDate();
 
     // realizamos el calculo
