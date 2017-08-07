@@ -167,8 +167,8 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
 
         dob = new Date();
         dob.setFullYear(2015);
-        dob.setMonth(7);
-        dob.setDate(8);
+        dob.setMonth(6);
+        dob.setDate(28);
 
         limit = new Date();
 
