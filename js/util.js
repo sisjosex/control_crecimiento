@@ -141,7 +141,7 @@ function validate_fecha(fecha) {
 function calcularEdad(desde, hasta) {
 
     var dia = desde.getDate();
-    var mes = desde.getMonth() + 1;
+    var mes = desde.getMonth() + 0;
     var ano = desde.getYear();
 
     // cogemos los valores actuales
