@@ -737,3 +737,6 @@ span.input-label {
     font-weight: bold;
 }
 
+.intro-content {
+    overflow: auto;
+}
