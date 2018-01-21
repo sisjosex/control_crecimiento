@@ -123,6 +123,13 @@ module.controller('Home', function ($scope) {
 
     ons.ready(function () {
 
+        $scope.imc = function () {
+
+            console.log('imc');
+
+            mainNavigator.pushPage('imc.html');
+        };
+
         $scope.calculadora_nutricional = function () {
 
             mainNavigator.pushPage('calculadora_nutricional_menu.html');
@@ -166,15 +173,15 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
         var dob;
 
         dob = new Date();
-        dob.setFullYear(2015);
-        dob.setMonth(6);
-        dob.setDate(28);
+        //dob.setFullYear(2015);
+        //dob.setMonth(6);
+        //dob.setDate(28);
 
         limit = new Date();
 
-        limit.setFullYear(2017);
-        limit.setMonth(6);
-        limit.setDate(30);
+        //limit.setFullYear(2017);
+        //limit.setMonth(6);
+        //limit.setDate(30);
 
         /*$scope.user = {
          dob: dob,
@@ -309,6 +316,93 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
 
                 alert('No se pudo conectar con el servidor');
             });
+        };
+
+    });
+});
+
+
+
+var CalculadoraIMC;
+module.controller('CalculadoraIMC', function ($scope, service) {
+
+    ons.ready(function () {
+
+        CalculadoraIMC = $scope;
+
+        var dob;
+
+        dob = new Date();
+        //dob.setFullYear(2015);
+        //dob.setMonth(6);
+        //dob.setDate(28);
+
+        limit = new Date();
+
+        //limit.setFullYear(2017);
+        //limit.setMonth(6);
+        //limit.setDate(30);
+
+        /*$scope.user = {
+         dob: dob,
+         limit: limit,
+         weight: 11,
+         height: 88,
+         pc: 54,
+         sex: 'M'
+         };*/
+
+        $scope.user = {
+            weight: '',
+            height: ''
+        };
+
+        $scope.result = '';
+
+        /*$scope.user = {
+         dob: undefined,
+         dob_formatted: 'DD / MM / YYYY',
+         limit: new Date(),
+         limit_formatted: moment(date).format('DD / MM / YYYY'),
+         weight: '',
+         height: '',
+         pc: '',
+         sex: ''
+         };*/
+
+        $scope.procesar = function () {
+
+            var weight = parseFloat($scope.user.weight);
+            var height = parseFloat($scope.user.height);
+
+            if (isNaN(weight)) {
+                weight = 0;
+            }
+
+            if (isNaN(height)) {
+                height = 0;
+            }
+
+            var error = false;
+
+            var ageYears = getAge($scope.user.dob, 'years');
+
+            if (weight <= 0 || height <= 0) {
+
+                alert('Peso, Altura son parametros requeridos');
+                return;
+
+            } else {
+
+                $scope.result = ($scope.user.weight / Math.pow($scope.user.height, 2)).toFixed(2);
+            }
+
+            //modal.show();
+
+            $scope.user.weight = weight;
+            $scope.user.height = height;
+
+
         };
 
     });
