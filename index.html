@@ -409,7 +409,7 @@
             </ons-list-item>
 
             <ons-list-header class="header-list" ng-show="results_aicv.length > 0">Resultado AICV </ons-list-header>
-            <ons-list-item ng-repeat="item in results_aicv">
+            <ons-list-item ng-repeat="item in results_aicv" ng-click="showConducta(item)">
                 <label class="center">
                     <ons-row>
                         <ons-col class="few-column"><b>{{ item.name }}</b></ons-col>
