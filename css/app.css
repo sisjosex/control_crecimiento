@@ -740,3 +740,11 @@ span.input-label {
 .intro-content {
     overflow: auto;
 }
+
+.alert-dialog {
+    width: 320px !important;
+}
+
+.alert-dialog-content {
+    text-align: left !important;
+}

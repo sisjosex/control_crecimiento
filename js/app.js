@@ -489,7 +489,7 @@ module.controller('Results', function ($scope, service) {
                     name: lang[result.table_params.name],
                     result: result.result,
                     color: evaluation.color,
-                    text: evaluation.text
+                    text: evaluation.text,
                 };
 
                 try {
@@ -535,7 +535,9 @@ module.controller('Results', function ($scope, service) {
                     result: result.result,
                     color: evaluation.color,
                     text: evaluation.text,
-                    conducta: evaluation.conducta
+                    conducta: evaluation.conducta,
+                    conducta_dnt_moderada_sin_complicacion: evaluation.conducta_dnt_moderada_sin_complicacion,
+                    conducta_dnt_moderada_con_complicacion: evaluation.conducta_dnt_moderada_con_complicacion
                 };
 
 
@@ -566,7 +568,27 @@ module.controller('Results', function ($scope, service) {
         $scope.showConducta = function(result) {
 
             if (result.conducta) {
-                ons.notification.alert(result.conducta);
+
+                //if (result.text == 'DESNUTRICION AGUDA MODERADA') {
+                if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
+                    conducta(result.conducta, function(option){
+
+                        if (option == 0) {
+
+                            alert(result.conducta_dnt_moderada_con_complicacion, function(){}, 'Con Complicacion');
+
+                        } else if (option == 1) {
+
+                            alert(result.conducta_dnt_moderada_sin_complicacion, function(){}, 'Sin Complicacion');
+                        }
+
+                    });
+
+                } else {
+
+                    alert(result.conducta);
+                }
+
             }
 
             console.log(result);
@@ -773,6 +795,9 @@ function evalParamsAICV(user, params, result) {
     var text = '';
     var color = '';
     var conducta = '';
+    var conducta_dnt_moderada_sin_complicacion = '';
+    var conducta_dnt_moderada_con_complicacion = '';
+    var conducta = '';
 
     var age = parseFloat((params.ageMonths / 12).toFixed(1));
 
@@ -793,34 +818,26 @@ function evalParamsAICV(user, params, result) {
 
                     text = 'PROB DE ALIMENTACION O BAJO PESO';
                     color = 'naranja';
-                    conducta = 'Recomendar a la madre que le dé el pecho las\
-                    veces que el RN quiera (por lo menos 10 veces\
-                    en 24 horas)\
-                        •	Si el RN no agarra bien o no mama bien, enseñar\
-                            a la madre la posición y el agarre correctos\
-                        •	Recomendar que reciba lactancia materna\
-                                            exclusiva\
-                        •	Si tiene moniliasis oral, enseñar a la madre cómo\
-                                            tratarla en el hogar\
-                        •	Orientar a la madre sobre cuidados del RN en el\
-                                            hogar\
-                        •	Indicar cuándo volver de inmediato\
-                        •	Recomendar que vuelva a visita de seguimiento 2\
-                                            días después para ver problemas de alimentación\
-                                            o moniliasis\
-                        •	Recomendar cuidados extra a ambos padres';
+                    conducta = 'Recomendar a la madre que le dé el pecho las veces que el RN quiera (por lo menos 10 veces en 24 horas)\
+                        • Si el RN no agarra bien o no mama bien, enseñar a la madre la posición y el agarre correctos<br>\
+                        • Recomendar que reciba lactancia materna exclusiva<br>\
+                        • Si tiene moniliasis oral, enseñar a la madre cómo tratarla en el hogar<br>\
+                        • Orientar a la madre sobre cuidados del RN en el hogar<br>\
+                        • Indicar cuándo volver de inmediato<br>\
+                        • Recomendar que vuelva a visita de seguimiento 2 días después para ver problemas de alimentación o moniliasis<br>\
+                        • Recomendar cuidados extra a ambos padres';
 
                 } else if (params.weight >= 2.5) {
 
                     text = 'SIN PROB DE ALIMENTACION NI BAJO PESO';
                     color = 'verde';
                     conducta = '' +
-                        '•	Orientar a la madre sobre:\
-                        - Lactancia Materna Exclusiva\
-                        - Cuidados del RN en el hogar\
-                        •	Indicar cuándo debe volver de inmediato\
-                        •	Verificar vacunas\
-                        •	Recomendar que vuelva a consulta de atención integral según cronograma\
+                        '• Orientar a la madre sobre:<br>\
+                        &nbsp;&nbsp;- Lactancia Materna Exclusiva<br>\
+                        &nbsp;&nbsp;- Cuidados del RN en el hogar<br>\
+                        • Indicar cuándo debe volver de inmediato<br>\
+                        • Verificar vacunas<br>\
+                        • Recomendar que vuelva a consulta de atención integral según cronograma\
                     ';
                 }
 
@@ -831,18 +848,16 @@ function evalParamsAICV(user, params, result) {
                     text = 'OBESIDAD';
                     color = 'azul';
                     conducta = '\
-                •	Evaluar la alimentación y corregir los problemas identificados (Hoja de atención\
-                    sistematizada)\
-                •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                •	Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)\
-                •	Promover la actividad física mediante el juego, de acuerdo a la edad del\
-                    niño o niña\
-                •	Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)\
-                •	Dar mebendazol \
-                •	Dar vitamina A y hierro de acuerdo a la edad\
-                •	Evaluar salud oral \
-                •	Realizar control regular según cronograma\
-                •	Si después de dos controles\
+                • Evaluar la alimentación y corregir los problemas identificados (Hoja de atención sistematizada)<br>\
+                • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                • Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)<br>\
+                • Promover la actividad física mediante el juego, de acuerdo a la edad del niño o niña<br>\
+                • Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)<br>\
+                • Dar mebendazol<br>\
+                • Dar vitamina A y hierro de acuerdo a la edad<br>\
+                • Evaluar salud oral<br>\
+                • Realizar control regular según cronograma<br>\
+                • Si después de dos controles\
                     ';
 
                 } else if (result.result > 2 && result.result <= 3) {
@@ -850,18 +865,16 @@ function evalParamsAICV(user, params, result) {
                     text = 'SOBREPESO';
                     color = 'celeste';
                     conducta = '\
-                •	Evaluar la alimentación y corregir los problemas identificados (Hoja de atención\
-                    sistematizada)\
-                •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                •	Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)\
-                •	Promover la actividad física mediante el juego, de acuerdo a la edad del\
-                    niño o niña\
-                •	Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)\
-                •	Dar mebendazol\
-                •	Dar vitamina A y hierro de acuerdo a la edad\
-                •	Evaluar salud oral\
-                •	Realizar control regular según cronograma\
-                •	Si después de dos controles\
+                • Evaluar la alimentación y corregir los problemas identificados (Hoja de atención sistematizada)<br>\
+                • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                • Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)<br>\
+                • Promover la actividad física mediante el juego, de acuerdo a la edad del niño o niña<br>\
+                • Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)<br>\
+                • Dar mebendazol<br>\
+                • Dar vitamina A y hierro de acuerdo a la edad<br>\
+                • Evaluar salud oral<br>\
+                • Realizar control regular según cronograma<br>\
+                • Si después de dos controles\
                     ';
 
                 } else if (result.result > -2 && result.result <= 2) {
@@ -869,12 +882,12 @@ function evalParamsAICV(user, params, result) {
                     text = 'NO TIENE BAJO PESO';
                     color = 'verde';
                     conducta = '\
-                    •	Enseñar a la madre los cuidados del niño en el hogar\
-                    •	Elogiar a la madre porque lo alimenta bien\
-                    •	Dar orientación y promoción sobre lactancia materna\
-                    •	Indicar a la madre cuándo volver de inmediato\
-                    •	Indicar que vuelva a visita de seguimiento en 14 días\
-                    •	Orientar sobre controles para la atención integral\
+                    • Enseñar a la madre los cuidados del niño en el hogar<br>\
+                    • Elogiar a la madre porque lo alimenta bien<br>\
+                    • Dar orientación y promoción sobre lactancia materna<br>\
+                    • Indicar a la madre cuándo volver de inmediato<br>\
+                    • Indicar que vuelva a visita de seguimiento en 14 días<br>\
+                    • Orientar sobre controles para la atención integral\
                     ';
 
                 } else if (result.result > -3 && result.result <= -2) {
@@ -882,24 +895,18 @@ function evalParamsAICV(user, params, result) {
                     text = 'PROB DE ALIMENTACION O BAJO PESO';
                     color = 'naranja';
                     conducta = '\
-                    •	Enseñar a la madre los cuidados del niño/a en el hogar\
-                    •	Promover la lactancia materna exclusiva\
-                    •	Recomendar a la madre que le dé el pecho las veces que el\
-                    niño/a quiera (por lo menos 10 veces en 24 horas)\
-                    •	Si el niño/a no agarra bien o no mama bien, enseñar a la\
-                    madre la posición y el agarre correctos\
-                    •	Si está recibiendo otros alimentos o líquidos, recomendar a lamadre que le dé el pecho más veces, reduciendo los otros\
-                                        alimentos o líquidos hasta eliminarlos\
-                    •	Si tiene moniliasis oral, enseñar a la madre a tratar la\
-                                        moniliasis en casa (incluyendo tratamiento de pezones)\
-                    •	Orientar a la madre para que evite el uso de biberón\
-                    •	Hacer el seguimiento para cualquier problema de alimentación o para moniliasis 7 días después\
-                    •	Control de peso cada 14 días\
-                    •	Si no mejora en dos controles, referir al Establecimiento de\
-                                        Salud con mayor capacidad resolutiva\
-                    •	Indicar cuándo volver de inmediato\
-                    •	Averiguar si la madre tiene problemas con la lactancia\
-                                        materna y dar orientación adecuada\
+                    • Enseñar a la madre los cuidados del niño/a en el hogar<br>\
+                    • Promover la lactancia materna exclusiva<br>\
+                    • Recomendar a la madre que le dé el pecho las veces que el niño/a quiera (por lo menos 10 veces en 24 horas)<br>\
+                    • Si el niño/a no agarra bien o no mama bien, enseñar a la madre la posición y el agarre correctos<br>\
+                    • Si está recibiendo otros alimentos o líquidos, recomendar a lamadre que le dé el pecho más veces, reduciendo los otros alimentos o líquidos hasta eliminarlos<br>\
+                    • Si tiene moniliasis oral, enseñar a la madre a tratar la moniliasis en casa (incluyendo tratamiento de pezones)<br>\
+                    • Orientar a la madre para que evite el uso de biberón<br>\
+                    • Hacer el seguimiento para cualquier problema de alimentación o para moniliasis 7 días después<br>\
+                    • Control de peso cada 14 días<br>\
+                    • Si no mejora en dos controles, referir al Establecimiento de Salud con mayor capacidad resolutiva<br>\
+                    • Indicar cuándo volver de inmediato<br>\
+                    • Averiguar si la madre tiene problemas con la lactancia materna y dar orientación adecuada\
                     ';
 
                 } else if (result.result <= -3) {
@@ -907,9 +914,9 @@ function evalParamsAICV(user, params, result) {
                     text = 'DESNUTRICION GRAVE';
                     color = 'rojo';
                     conducta = '\
-                    •	Dar la Primera Dosis de Antibiótico por vía intramuscular\
-                    •	Referir URGENTEMENTE al Hospital de acuerdo a normas de transporte\
-                    •	Recomendar a la madre que continúe dándole el pecho\
+                    • Dar la Primera Dosis de Antibiótico por vía intramuscular<br>\
+                    • Referir URGENTEMENTE al Hospital de acuerdo a normas de transporte<br>\
+                    • Recomendar a la madre que continúe dándole el pecho\
                     ';
                 }
 
@@ -956,9 +963,9 @@ function evalParamsAICV(user, params, result) {
                     text = 'DESARROLLO NORMAL';
                     color = 'verde';
                     conducta = '\
-                    •	Elogiar a la madre\
-                    •	Orientar a madre para que continúe estimulando su hijo (Guía de Desarrollo)\
-                    •	Indicar a la madre que regrese al establecimiento de salud para la consulta integral\
+                    • Elogiar a la madre<br>\
+                    • Orientar a madre para que continúe estimulando su hijo (Guía de Desarrollo)<br>\
+                    • Indicar a la madre que regrese al establecimiento de salud para la consulta integral<br>\
                     ';
 
                 } else if ((result.result >= 1 && result.result <= 2) || (result.result <= -1 && result.result >= -2)) {
@@ -966,8 +973,8 @@ function evalParamsAICV(user, params, result) {
                     text = 'ALERTA PARA EL DESARROLLO';
                     color = 'naranja';
                     conducta = '\
-                    •	Orientar a la madre sobre la estimulación de su niño/a (Guía de Desarrollo)\
-                    •	Indicar que vuelva para una consulta de control del desarrollo en 30 días\
+                    • Orientar a la madre sobre la estimulación de su niño/a (Guía de Desarrollo)<br>\
+                    • Indicar que vuelva para una consulta de control del desarrollo en 30 días\
                     ';
 
                 } else if ((result.result < -2 || result.result > 2)) {
@@ -975,7 +982,7 @@ function evalParamsAICV(user, params, result) {
                     text = 'PROBABLE RETRASO EN EL DESARROLLO';
                     color = 'rojo';
                     conducta = '\
-                    •	Referir para evaluación especializada\
+                    • Referir para evaluación especializada\
                     ';
                 }
             }
@@ -993,13 +1000,13 @@ function evalParamsAICV(user, params, result) {
                     text = 'NO TIENE TALLA BAJA';
                     color = 'verde';
                     conducta = '\
-                    •	Evaluar la lactancia materna o la alimentación y corregir los problemas identificados (formulario de registro)\
-                    •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                    •	Dar mebendazol (si es mayor de 1 año)\
-                    •	Dar vitamina A si no la recibió en los 6 últimos meses\
-                    •	Orientar sobre el uso del Nutribebé (si es de 6 meses a menor de 2\
-                    •	Dar Chispitas Nutricionales (niño o niña de 6 meses a menor de 2 años) o Solución de hierro (niño o niña d e 2 a 5 años) y transmitir mensajes para promover su uso\
-                    •	Realizar control regular según cronograma\
+                    • Evaluar la lactancia materna o la alimentación y corregir los problemas identificados (formulario de registro)<br>\
+                    • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                    • Dar mebendazol (si es mayor de 1 año)<br>\
+                    • Dar vitamina A si no la recibió en los 6 últimos meses<br>\
+                    • Orientar sobre el uso del Nutribebé (si es de 6 meses a menor de 2<br>\
+                    • Dar Chispitas Nutricionales (niño o niña de 6 meses a menor de 2 años) o Solución de hierro (niño o niña d e 2 a 5 años) y transmitir mensajes para promover su uso<br>\
+                    • Realizar control regular según cronograma<br>\
                     ';
 
                 } else if (result.result < -2) {
@@ -1007,14 +1014,14 @@ function evalParamsAICV(user, params, result) {
                     text = 'TALLA BAJA';
                     color = 'celeste';
                     conducta = '\
-                    •	Dar zinc durante 12 semanas (si es de 6 meses a menor de 2 años)\
-                    •	Evaluar la lactancia materna o la alimentación y corregir los problemas identificados\
-                    •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                    •	Dar mebendazol (si es mayor de 1 año)\
-                    •	Dar vitamina A si no la recibió en los 6 últimos meses\
-                    •	Orientar sobre el uso del Nutribebé (si es de 6 meses a menor de 2 años)\
-                    •	Dar Chispitas Nutricionales (niño o niña de 6 meses a menor de 2 años) o Solución de hierro (niño o niñad e 2 a 5 años) y transmitir mensajes para promover su uso\
-                    •	Realizar control en 30 días\
+                    • Dar zinc durante 12 semanas (si es de 6 meses a menor de 2 años)<br>\
+                    • Evaluar la lactancia materna o la alimentación y corregir los problemas identificados<br>\
+                    • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                    • Dar mebendazol (si es mayor de 1 año)<br>\
+                    • Dar vitamina A si no la recibió en los 6 últimos meses<br>\
+                    • Orientar sobre el uso del Nutribebé (si es de 6 meses a menor de 2 años)<br>\
+                    • Dar Chispitas Nutricionales (niño o niña de 6 meses a menor de 2 años) o Solución de hierro (niño o niñad e 2 a 5 años) y transmitir mensajes para promover su uso<br>\
+                    • Realizar control en 30 días\
                     ';
                 }
             }
@@ -1032,18 +1039,16 @@ function evalParamsAICV(user, params, result) {
                     text = 'OBESIDAD';
                     color = 'azul';
                     conducta = '\
-                    •	Evaluar la alimentación y corregir los problemas identificados (Hoja de atención\
-                    sistematizada)\
-                    •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                    •	Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)\
-                    •	Promover la actividad física mediante el juego, de acuerdo a la edad del\
-                    niño o niña\
-                    •	Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)\
-                    •	Dar mebendazol\
-                    •	Dar vitamina A y hierro de acuerdo a la edad\
-                    •	Evaluar salud oral\
-                    •	Realizar control regular según cronograma\
-                    •	Si después de dos controles\
+                    • Evaluar la alimentación y corregir los problemas identificados (Hoja de atención sistematizada)<br>\
+                    • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                    • Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)<br>\
+                    • Promover la actividad física mediante el juego, de acuerdo a la edad del niño o niña<br>\
+                    • Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)<br>\
+                    • Dar mebendazol<br>\
+                    • Dar vitamina A y hierro de acuerdo a la edad<br>\
+                    • Evaluar salud oral<br>\
+                    • Realizar control regular según cronograma<br>\
+                    • Si después de dos controles\
                     ';
 
                 } else if (result.result >= 2.01 && result.result <= 3.00) {
@@ -1051,18 +1056,16 @@ function evalParamsAICV(user, params, result) {
                     text = 'SOBREPESO';
                     color = 'celeste';
                     conducta = '\
-                    •	Evaluar la alimentación y corregir los problemas identificados (Hoja de atención\
-                    sistematizada)\
-                    •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                    •	Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)\
-                    •	Promover la actividad física mediante el juego, de acuerdo a la edad del\
-                        niño o niña\
-                    •	Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)\
-                    •	Dar mebendazol\
-                    •	Dar vitamina A y hierro de acuerdo a la edad\
-                    •	Evaluar salud oral\
-                    •	Realizar control regular según cronograma\
-                    •	Si después de dos controles\
+                    • Evaluar la alimentación y corregir los problemas identificados (Hoja de atención sistematizada)<br>\
+                    • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                    • Recomendar la disminución del consumo de bebidas azucaradas (gaseosas), dulces, pasteles, frituras, etc. (comida chatarra o rápida)<br>\
+                    • Promover la actividad física mediante el juego, de acuerdo a la edad del niño o niña<br>\
+                    • Orientar sobre el uso del Nutribebé (niño/a de 6 meses a menor de 2 años)<br>\
+                    • Dar mebendazol<br>\
+                    • Dar vitamina A y hierro de acuerdo a la edad<br>\
+                    • Evaluar salud oral<br>\
+                    • Realizar control regular según cronograma<br>\
+                    • Si después de dos controles\
                     ';
 
                 } else if (result.result >= -2.00 && result.result <= 2.00) {
@@ -1070,15 +1073,15 @@ function evalParamsAICV(user, params, result) {
                     text = 'NO TIENE DESNUTRICION AGUDA';
                     color = 'verde';
                     conducta = '\
-                    •	Dar recomendaciones nutricionales según la edad del niño o niña\
-                    •	Dar mebendazol (si es mayor de 1 año)\
-                    •	Dar vitamina A si no la recibió en los 6 últimos meses\
-                    •	Orientar sobre el uso del Nutribebé o similares (niño/a de 6 meses a menor de 2 años)\
-                    •	Dar hierro de acuerdo a la edad y transmitir mensajes para promover su uso\
-                    •	Evaluar salud oral\
-                    •	Indicar a la madre cuándo debe volver de inmediato\
-                    •	Realizar control regular según cronograma\
-                    •	Aconsejar a la madre sobre su propia salud\
+                    • Dar recomendaciones nutricionales según la edad del niño o niña<br>\
+                    • Dar mebendazol (si es mayor de 1 año)<br>\
+                    • Dar vitamina A si no la recibió en los 6 últimos meses<br>\
+                    • Orientar sobre el uso del Nutribebé o similares (niño/a de 6 meses a menor de 2 años)<br>\
+                    • Dar hierro de acuerdo a la edad y transmitir mensajes para promover su uso<br>\
+                    • Evaluar salud oral<br>\
+                    • Indicar a la madre cuándo debe volver de inmediato<br>\
+                    • Realizar control regular según cronograma<br>\
+                    • Aconsejar a la madre sobre su propia salud\
                     ';
 
                 } else if (result.result >= -3.00 && result.result <= -2.01) {
@@ -1086,20 +1089,21 @@ function evalParamsAICV(user, params, result) {
                     text = 'DESNUTRICION AGUDA MODERADA';
                     color = 'naranja';
                     conducta = '\
-                    •	Completar la evaluación de los síntomas principales del niño o niña para identificar complicaciones y definir la conducta a seguir, de acuerdo a la presencia o ausencia de complicaciones\
+                    • Completar la evaluación de los síntomas principales del niño o niña para identificar complicaciones y definir la conducta a seguir, de acuerdo a la presencia o ausencia de complicaciones\
                     ';
+
                     conducta_dnt_moderada_sin_complicacion = '\
-                    •	Realizar manejo de acuerdo con la GUÍA PARA EL MANEJO DEL NIÑO O NIÑA CON DESNUTRICIÓN MODERADA SIN COMPLICACIONES\
-                    •	Dar mebendazol (si es mayor de 1 año)\
-                    •	Evaluar salud oral\
-                    •	 Realizar seguimiento en 7 días empleando el Formulario de Seguimiento Nutricional\
-                    •	Indicar a la madre cuándo debe volver de inmediato\
+                    • Realizar manejo de acuerdo con la GUÍA PARA EL MANEJO DEL NIÑO O NIÑA CON DESNUTRICIÓN MODERADA SIN COMPLICACIONES<br>\
+                    • Dar mebendazol (si es mayor de 1 año)<br>\
+                    • Evaluar salud oral<br>\
+                    • Realizar seguimiento en 7 días empleando el Formulario de Seguimiento Nutricional<br>\
+                    • Indicar a la madre cuándo debe volver de inmediato\
                     ';
 
                     conducta_dnt_moderada_con_complicacion = '\
-                    •	Dar el tratamiento de acuerdo a la clasificación o complicación\
-                    •	Referir URGENTEMENTE al Hospital, siguiendo las recomendaciones para el transporte\
-                    •	Si no es posible referir DE INMEDIATO, mientras viabiliza la referencia iniciar tratamiento de acuerdo con la GUIA PARA EL MANEJO DEL NIÑO O NIÑA CON DESNUTRICIÓN AGUDA MODERADA SIN COMPLICACIONES\
+                    • Dar el tratamiento de acuerdo a la clasificació  o complicación<br>\
+                    • Referir URGENTEMENTE al Hospital, siguiendo las recomendaciones para el transporte<br>\
+                    • Si no es posible referir DE INMEDIATO, mientras viabiliza la referencia iniciar tratamiento de acuerdo con la GUIA PARA EL MANEJO DEL NIÑO O NIÑA CON DESNUTRICIÓN AGUDA MODERADA SIN COMPLICACIONES\
                     ';
 
                 } else if (result.result <= -3.01) {
@@ -1107,11 +1111,10 @@ function evalParamsAICV(user, params, result) {
                     text = 'DNT AGUDA GRAVE Y/O ANEMIA GRAVE';
                     color = 'rojo';
                     conducta = '\
-                    •	Dar vitamina A\
-                    •	Dar primera dosis de CEFTRIAXONA\
-                    •	Referir URGENTEMENTE al hospital siguiendo las recomendaciones para el\
-                                        transporte\
-                    •	Si no es posible referir DE INMEDIATO, mientras viabiliza la referencia iniciar tratamiento de acuerdo a la guía: MANEJO INICIAL DEL DESNUTRIDO AGUDO GRAVE\
+                    • Dar vitamina A<br>\
+                    • Dar primera dosis de CEFTRIAXONA<br>\
+                    • Referir URGENTEMENTE al hospital siguiendo las recomendaciones para el transporte<br>\
+                    • Si no es posible referir DE INMEDIATO, mientras viabiliza la referencia iniciar tratamiento de acuerdo a la guía: MANEJO INICIAL DEL DESNUTRIDO AGUDO GRAVE\
                     ';
                 }
             }
@@ -1158,15 +1161,17 @@ function evalParamsAICV(user, params, result) {
         label: result.table_params.param_name,
         text: text,
         color: color,
-        conducta: conducta
+        conducta: conducta,
+        conducta_dnt_moderada_sin_complicacion: conducta_dnt_moderada_sin_complicacion,
+        conducta_dnt_moderada_con_complicacion: conducta_dnt_moderada_con_complicacion
     };
 }
 
-function alert(message, callback) {
+function alert(message, callback, title) {
     ons.notification.alert({
-        message: message,
+        messageHTML: message,
         // or messageHTML: '<div>Message in HTML</div>',
-        title: 'Mensaje',
+        title: title == undefined ? 'Mensaje' : title,
         buttonLabel: 'OK',
         animation: 'default', // or 'none'
         // modifier: 'optional-modifier'
@@ -1176,9 +1181,26 @@ function alert(message, callback) {
     });
 }
 
+function conducta(message, callback) {
+    ons.notification.confirm({
+        messageHTML: message,
+        // or messageHTML: '<div>Message in HTML</div>',
+        title: 'Confirmación',
+        buttonLabels: ['Con Complicacion', 'Sin Complicacion'],
+        animation: 'default', // or 'none'
+        primaryButtonIndex: 1,
+        cancelable: true,
+        callback: function (index) {
+            // -1: Cancel
+            // 0-: Button index from the left
+            callback ? callback(index) : '';
+        }
+    });
+}
+
 function confirm(message, callback) {
     ons.notification.confirm({
-        message: message,
+        messageHTML: message,
         // or messageHTML: '<div>Message in HTML</div>',
         title: 'Confirmación',
         buttonLabels: [t('yes'), t('no')],
