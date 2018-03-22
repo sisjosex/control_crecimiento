@@ -569,8 +569,8 @@ module.controller('Results', function ($scope, service) {
 
             if (result.conducta) {
 
-                //if (result.text == 'DESNUTRICION AGUDA MODERADA') {
-                if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
+                if (result.text == 'DESNUTRICION AGUDA MODERADA') {
+                //if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
                     conducta(result.conducta, function(option){
 
                         if (option == 0) {
