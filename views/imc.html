@@ -1,0 +1,75 @@
+<ons-page ng-controller="CalculadoraIMC" class="internal-tab bg-medic">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+            <img class="img-logo-header" src="img/logo.png"/>
+        </div>
+
+        <div class="right">
+            <!--
+            <ons-toolbar-button ng-click="goToCategory()">
+                <img src="img/info-icon.png" alt="">
+            </ons-toolbar-button>-->
+        </div>
+    </ons-toolbar>
+
+    <div class="intro-content">
+        <div class="center-content2">
+            <div class="intro-section">
+
+                <p class="text" style="margin-top: 38%;">Ingrese los datos para la calculadora IMC</p>
+                <p></p>
+
+                <label class="text-label">Peso (Kg.):</label>
+                <input type="number" class="text-input--underbar input-text" placeholder="Kg." ng-model="user.weight">
+
+                <label class="text-label">Altura (m.):</label>
+                <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.height">
+
+                <ons-button class="btn-yellow arrow-right" ng-click="procesar()">Calcular <i class="fa fa-chevron-right"></i></ons-button>
+                <!--<p class="text"><a class="btn-link" ng-click="forgot()">¿Has olvidado tu contraseña?</a></p>-->
+
+                <div class="result" ng-show="result != ''" style="    color: yellow;
+    font-size: 30px;
+    border: solid 4px white;
+    margin-bottom: 10px;
+    margin-top: 10px;">
+                    <b style="text-align: center;width: 100%">{{ result }}</b>
+                </div>
+
+                <table class="explanation" ng-show="result != ''" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>IMC (Kg/m<sup>2</sup>)</th>
+                        <th>Diagnóstico</th>
+                    </tr>
+                    <tr>
+                        <td>18,5 - 24,9</td>
+                        <td>Normal <span class="color green"></span></td>
+                    </tr>
+                    <tr>
+                        <td>< 18,5</td>
+                        <td>Bajo Peso <span class="color red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>25 - 29,9</td>
+                        <td>Sobrepeso <span class="color yellow"></span></td>
+                    </tr>
+                    <tr>
+                        <td>30 - 34,9</td>
+                        <td>Obesidad moderada <span class="color red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>35 - 35,9</td>
+                        <td>Obesidad severa <span class="color red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>>= 40/td>
+                        <td>Obesidad mórbida <span class="color red"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</ons-page>

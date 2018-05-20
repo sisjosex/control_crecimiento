@@ -45,6 +45,7 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
+    <plugin name="cordova-plugin-statusbar" />
     <plugin spec="https://github.com/apache/cordova-plugin-device.git" source="git" />
     <plugin spec="https://github.com/apache/cordova-plugin-device-orientation.git" source="git" />
     <plugin spec="https://github.com/apache/cordova-plugin-dialogs.git" source="git" />
@@ -98,6 +99,20 @@
     <feature name="DatePicker">
         <param name="ios-package" value="DatePicker"/>
     </feature>
+
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#ffffff" />
+    <preference name="StatusBarStyle" value="blackopaque" />
+
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <preference name="orientation" value="default" />
+        <preference name="StatusBarBackgroundColor" value="#ffffff" />
+    </platform>
 
     <feature name="DatePickerPlugin">
         <param name="android-package" value="com.sharinglabs.cordova.plugin.datepicker.DatePickerPlugin"/>

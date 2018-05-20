@@ -1,0 +1,142 @@
+<ons-page ng-controller="Results" class="internal-tab bg-medic">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+            <img class="img-logo-header" src="img/logo.png"/>
+        </div>
+
+        <div class="right">
+            <!--
+            <ons-toolbar-button ng-click="goToCategory()">
+                <img src="img/info-icon.png" alt="">
+            </ons-toolbar-button>-->
+        </div>
+    </ons-toolbar>
+
+    <ons-list>
+
+        <ons-list-header class="header-list">Detalle para la fecha ({{ user.actualDate }})</ons-list-header>
+
+        <!--<ons-list-item>-->
+        <!--<label class="center">-->
+
+        <table style="width: 100%; background: #ffffff;">
+            <tr>
+                <td colspan="1"><b>Edad</b></td>
+                <td colspan="5">{{ user.edadTXT }}</td>
+            </tr>
+            <tr>
+                <td><b>FN</b> </td>
+                <td colspan="2">{{ user.dateFormatted }}</td>
+                <td><b>Sexo</b></td>
+                <td colspan="2">{{ user.sex }}</td>
+            </tr>
+            <tr>
+                <td><b>Peso</b></td>
+                <td>{{ user.weight }} Kg</td>
+                <td><b>Talla</b></td>
+                <td>{{ user.height }} cm</td>
+                <td><b>PC</b></td>
+                <td>{{ user.pc }} cm</td>
+            </tr>
+            <tr></tr>
+        </table>
+
+        <!--<ons-row>-->
+        <!--<ons-col style="text-align: left">-->
+        <!--<b class="label">Edad</b> <span class="value">{{ user.edadTXT }}</span>-->
+        <!--</ons-col>-->
+        <!--</ons-row>-->
+
+        <!--<ons-row style="width: 79%;">-->
+        <!--<ons-col class="left">-->
+        <!--<b class="label">-->
+        <!--FN-->
+        <!--</b>-->
+        <!--<span class="value" style="margin-left:20px;">{{ user.dateFormatted }}</span>-->
+        <!--</ons-col>-->
+        <!--<ons-col class="right">-->
+        <!--<b>Sexo</b> {{ user.sex }}-->
+        <!--</ons-col>-->
+        <!--</ons-row>-->
+
+        <!--<ons-row>-->
+        <!--<ons-col class="left">-->
+        <!--<b>Peso&nbsp;</b>-->
+        <!--</ons-col>-->
+        <!--<ons-col>-->
+        <!--{{ user.weight }} Kg-->
+        <!--</ons-col>-->
+        <!--<ons-col class="left">-->
+        <!--<b>Talla&nbsp;</b>-->
+        <!--</ons-col>-->
+        <!--<ons-col>-->
+        <!--{{ user.height }} cm-->
+        <!--</ons-col>-->
+        <!--<ons-col class="left">-->
+        <!--<b>PC&nbsp;</b>-->
+        <!--</ons-col>-->
+        <!--<ons-col>-->
+        <!--{{ user.pc }} cm-->
+        <!--</ons-col>-->
+        <!--</ons-row>-->
+
+        <!--</label>-->
+        <!--</ons-list-item>-->
+
+        <!--
+        <ons-list-item>
+            <label class="center">
+                <ons-row>
+                    <ons-col class="left">
+                        <b>Peso&nbsp;</b>
+                    </ons-col>
+                    <ons-col>
+                        {{ user.weight }} Kg
+                    </ons-col>
+                    <ons-col class="left">
+                        <b>Talla&nbsp;</b>
+                    </ons-col>
+                    <ons-col>
+                        {{ user.height }} cm
+                    </ons-col>
+                    <ons-col class="left">
+                        <b>PC&nbsp;</b>
+                    </ons-col>
+                    <ons-col>
+                        {{ user.pc }} cm
+                    </ons-col>
+                </ons-row>
+            </label>
+        </ons-list-item>-->
+
+
+        <ons-list-header class="header-list">Resultado SOAPS </ons-list-header>
+        <ons-list-item ng-repeat="item in results_soaps">
+            <label class="center">
+                <ons-row>
+                    <ons-col class="col-title"><b>{{ item.name }}</b></ons-col>
+                    <ons-col class="col-value"><span class="legend">{{ item.text }}</span></ons-col>
+                    <ons-col class="col-title"><b>Pz</b></ons-col>
+                    <ons-col class="col-value"><div class="result {{ item.color }}">{{ item.result }}</div></ons-col>
+                    <ons-col class="col-title"><b>M</b></ons-col>
+                    <ons-col class="col-value"><span>{{ item.M }}</span></ons-col>
+                </ons-row>
+            </label>
+        </ons-list-item>
+
+        <ons-list-header class="header-list" ng-show="results_aicv.length > 0">Resultado AICV </ons-list-header>
+        <ons-list-item ng-repeat="item in results_aicv" ng-click="showConducta(item)">
+            <label class="center">
+                <ons-row>
+                    <ons-col class="few-column"><b>{{ item.name }}</b></ons-col>
+                    <ons-col class="big-column"><span class="legend legend-legible">{{ item.text }}</span></ons-col>
+                </ons-row>
+            </label>
+        </ons-list-item>
+
+
+    </ons-list>
+</ons-page>

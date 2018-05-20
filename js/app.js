@@ -23,7 +23,7 @@ module.controller('MainNavigatorController', function ($scope, $rootScope) {
 
     ons.ready(function () {
 
-        mainNavigator.pushPage('home.html', {animation: 'none'});
+        mainNavigator.pushPage('views/home.html', {animation: 'none'});
 
         $rootScope.importDatabase = function (reset) {
 
@@ -127,22 +127,22 @@ module.controller('Home', function ($scope) {
 
             console.log('imc');
 
-            mainNavigator.pushPage('imc.html');
+            mainNavigator.pushPage('views/imc.html');
         };
 
         $scope.calculadora_nutricional = function () {
 
-            mainNavigator.pushPage('calculadora_nutricional_menu.html');
+            mainNavigator.pushPage('views/calculadora_nutricional_menu.html');
         };
 
         $scope.inmunizacion = function () {
 
-            mainNavigator.pushPage('inmunizacion.html');
+            mainNavigator.pushPage('views/inmunizacion.html');
         };
 
         $scope.control_seguimiento = function () {
 
-            mainNavigator.pushPage('control_seguimiento.html');
+            mainNavigator.pushPage('views/control_seguimiento.html');
         };
 
     });
@@ -295,7 +295,7 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
 
                     modal.hide();
 
-                    mainNavigator.pushPage('results.html', {
+                    mainNavigator.pushPage('views/results.html', {
                         data: {
                             result: result.data,
                             user: $scope.user,
