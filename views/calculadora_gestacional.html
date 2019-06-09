@@ -1,4 +1,4 @@
-<ons-page ng-controller="CalculadoraNutricional" class="internal-tab bg-medic">
+<ons-page ng-controller="CalculadoraGestacional" class="internal-tab bg-medic">
     <ons-toolbar>
         <div class="left">
             <ons-back-button></ons-back-button>
@@ -19,20 +19,10 @@
         <div class="center-content2">
             <div class="intro-section">
 
-                <p class="text">Ingrese los datos para la calculadora nutricional</p>
+                <p class="text">Ingrese los datos para la edad gestacional</p>
                 <p></p>
 
-                <label class="text-label">Sexo:</label>
-
-                <label class="left radio-box">
-                    <ons-input name="sex" type="radio" input-id="radio-1" ng-model="user.sex" value="M" class="radio masculino"></ons-input>
-                </label>
-
-                <label class="left radio-box">
-                    <ons-input name="sex" type="radio" input-id="radio-2" ng-model="user.sex" value="F" class="radio femenino"></ons-input>
-                </label>
-
-                <label class="text-label">Fecha de nacimiento:</label>
+                <label class="text-label">FUM:</label>
                 <div id="date" type="date" class="text-input--underbar input-text date" ng-bind="user.dob_formatted" ng-click="showDatePicker1()"></div>
 <!--                <input id="date" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.dob">-->
 
@@ -40,18 +30,20 @@
                 <div id="date_limit" type="date" class="text-input--underbar input-text date" ng-bind="user.limit_formatted" ng-click="showDatePicker2()"></div>
 <!--                <input id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.limit">-->
 
-                <label class="text-label">Peso (Kg.):</label>
-                <input type="number" class="text-input--underbar input-text" placeholder="Kg." ng-model="user.weight">
-
-                <label class="text-label">Talla (cm.):</label>
-                <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.height">
-
-                <label class="text-label">Per&iacute;metro cef&aacute;lico (PC):</label>
-                <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.pc">
-
                 <ons-button class="btn-yellow arrow-right" ng-click="procesar()">Calcular <i class="fa fa-chevron-right"></i></ons-button>
                 <!--<p class="text"><a class="btn-link" ng-click="forgot()">¿Has olvidado tu contraseña?</a></p>-->
             </div>
+
+            <table style="width: 300px;margin: 0 auto;" class="explanation" ng-show="result != ''" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th align="right">EG</th>
+                    <th align="right">{{ result.eg }}</th>
+                </tr>
+                <tr>
+                    <td align="right">FPP</td>
+                    <td align="right">{{ result.fpp }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </ons-page>

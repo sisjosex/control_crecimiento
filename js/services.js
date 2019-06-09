@@ -71,9 +71,9 @@ var tablas = {
         weight_5_19: {
             F: 'mujer_mc',
             M: 'varon_mc',
-            formula: function (obs, M, Z) {
+            formula: function (obs, M, L, S) {
 
-                return (obs - M) / Z;
+                return (Math.pow((obs / M), L) - 1) / (L * S);
             },
             type: 'mls',
             column: 'MESES',
@@ -174,8 +174,6 @@ angular.module("services", []).factory("service", ["$http", "$q", function ($htt
 
             var result = {};
             var callBacks = [];
-
-            //console.log(params);
 
             if (params.height != 0) {
 
@@ -302,16 +300,24 @@ angular.module("services", []).factory("service", ["$http", "$q", function ($htt
 
                         if (params.ageYears >= 0 && params.ageYears <= 5) {
 
+                            weight = params.weight;
+
                             table_params = getTableParams('age', 'weight_0_5', params.sex);
 
                         } else if (params.ageYears >= 5 && params.ageYears <= 19) {
 
+                            weight = params.weight/Math.pow(params.height/100, 2);
+
                             table_params = getTableParams('age', 'weight_5_19', params.sex);
                         }
 
+                        console.log("table_params.name");
+                        console.log(table_params.name);
+
                         if (table_params.name != '') {
 
-                            weight = params.weight.toFixed(1) + '';
+                            // weight = params.weight.toFixed(1) + '';
+                            weight = weight.toFixed(1) + '';
                             weight = weight.replace('.', ',');
 
                             if (table_params.column == 'Longitud') {
@@ -326,6 +332,9 @@ angular.module("services", []).factory("service", ["$http", "$q", function ($htt
 
                                 query = "SELECT * FROM " + table_params.name + " WHERE " + table_params.column + "='" + params.ageMonths + "'";
                             }
+
+                            console.log('consulta');
+                            console.log(weight);
 
                             callBacks.push({
                                 obs: weight,
@@ -346,6 +355,7 @@ angular.module("services", []).factory("service", ["$http", "$q", function ($htt
                                         } else if (params.ageDays > 365*5 && params.ageDays <= 365*19) {
 
                                             data.result = parseFloat( formulaLMS(data.table_params.formula, data.obs, row.M, row.L, row.S).toFixed(2) );
+                                            // data.result = parseFloat( formulaM(data.table_params.formula, data.obs, row.M, row.SD0).toFixed(2) );
                                         }
                                     }
                                 }

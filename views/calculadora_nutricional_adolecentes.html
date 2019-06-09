@@ -1,4 +1,4 @@
-<ons-page ng-controller="CalculadoraNutricional" class="internal-tab bg-medic">
+<ons-page ng-controller="CalculadoraNutricionalAdolecentes" class="internal-tab bg-medic">
     <ons-toolbar>
         <div class="left">
             <ons-back-button></ons-back-button>
@@ -38,7 +38,7 @@
 
                 <label class="text-label">Fecha actual:</label>
                 <div id="date_limit" type="date" class="text-input--underbar input-text date" ng-bind="user.limit_formatted" ng-click="showDatePicker2()"></div>
-<!--                <input id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.limit">-->
+                <!--<input id="date_limit" type="date" class="text-input&#45;&#45;underbar input-text date" ng-model="user.limit">-->
 
                 <label class="text-label">Peso (Kg.):</label>
                 <input type="number" class="text-input--underbar input-text" placeholder="Kg." ng-model="user.weight">
@@ -46,8 +46,8 @@
                 <label class="text-label">Talla (cm.):</label>
                 <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.height">
 
-                <label class="text-label">Per&iacute;metro cef&aacute;lico (PC):</label>
-                <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.pc">
+<!--                <label class="text-label">Per&iacute;metro cef&aacute;lico (PC):</label>-->
+<!--                <input type="number" class="text-input&#45;&#45;underbar input-text" placeholder="cm." ng-model="user.pc">-->
 
                 <ons-button class="btn-yellow arrow-right" ng-click="procesar()">Calcular <i class="fa fa-chevron-right"></i></ons-button>
                 <!--<p class="text"><a class="btn-link" ng-click="forgot()">¿Has olvidado tu contraseña?</a></p>-->

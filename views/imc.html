@@ -25,7 +25,7 @@
                 <label class="text-label">Peso (Kg.):</label>
                 <input type="number" class="text-input--underbar input-text" placeholder="Kg." ng-model="user.weight">
 
-                <label class="text-label">Altura (m.):</label>
+                <label class="text-label">Altura (cm.):</label>
                 <input type="number" class="text-input--underbar input-text" placeholder="cm." ng-model="user.height">
 
                 <ons-button class="btn-yellow arrow-right" ng-click="procesar()">Calcular <i class="fa fa-chevron-right"></i></ons-button>
@@ -38,38 +38,38 @@
     margin-top: 10px;">
                     <b style="text-align: center;width: 100%">{{ result }}</b>
                 </div>
-
-                <table class="explanation" ng-show="result != ''" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <th>IMC (Kg/m<sup>2</sup>)</th>
-                        <th>Diagnóstico</th>
-                    </tr>
-                    <tr>
-                        <td>18,5 - 24,9</td>
-                        <td>Normal <span class="color green"></span></td>
-                    </tr>
-                    <tr>
-                        <td>< 18,5</td>
-                        <td>Bajo Peso <span class="color red"></span></td>
-                    </tr>
-                    <tr>
-                        <td>25 - 29,9</td>
-                        <td>Sobrepeso <span class="color yellow"></span></td>
-                    </tr>
-                    <tr>
-                        <td>30 - 34,9</td>
-                        <td>Obesidad moderada <span class="color red"></span></td>
-                    </tr>
-                    <tr>
-                        <td>35 - 35,9</td>
-                        <td>Obesidad severa <span class="color red"></span></td>
-                    </tr>
-                    <tr>
-                        <td>>= 40/td>
-                        <td>Obesidad mórbida <span class="color red"></span></td>
-                    </tr>
-                </table>
             </div>
+
+            <table style="width: 300px;margin: 0 auto;" class="explanation" ng-show="result != ''" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>IMC (Kg/m<sup>2</sup>)</th>
+                    <th>Diagnóstico</th>
+                </tr>
+                <tr>
+                    <td>< 18,5</td>
+                    <td>Bajo Peso <span class="color yellow"></span></td>
+                </tr>
+                <tr>
+                    <td>18,5 - 24,9</td>
+                    <td>Normal <span class="color green"></span></td>
+                </tr>
+                <tr>
+                    <td>25 - 29,9</td>
+                    <td>Sobrepeso <span class="color yellow"></span></td>
+                </tr>
+                <tr>
+                    <td>30 - 34,9</td>
+                    <td>Obesidad moderada <span class="color red"></span></td>
+                </tr>
+                <tr>
+                    <td>35 - 39,9</td>
+                    <td>Obesidad severa <span class="color red"></span></td>
+                </tr>
+                <tr>
+                    <td>>= 40</td>
+                    <td>Obesidad mórbida <span class="color red"></span></td>
+                </tr>
+            </table>
         </div>
     </div>
 </ons-page>

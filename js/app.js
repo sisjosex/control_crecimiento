@@ -135,6 +135,11 @@ module.controller('Home', function ($scope) {
             mainNavigator.pushPage('views/calculadora_nutricional_menu.html');
         };
 
+        $scope.calculadora_gestacional = function () {
+
+            mainNavigator.pushPage('views/calculadora_gestacional.html');
+        };
+
         $scope.inmunizacion = function () {
 
             mainNavigator.pushPage('views/inmunizacion.html');
@@ -168,29 +173,31 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
 
     ons.ready(function () {
 
+        lang.mujer_altura = 'T/E';
+        lang.varon_altura = 'T/E';
+
         CalculadoraNutricional = $scope;
 
         var dob;
 
         dob = new Date();
-        //dob.setFullYear(2015);
-        //dob.setMonth(6);
-        //dob.setDate(28);
+        // dob.setFullYear(2017);
+        // dob.setMonth(3);
+        // dob.setDate(17);
 
         limit = new Date();
+        // limit.setFullYear(2019);
+        // limit.setMonth(3);
+        // limit.setDate(28);
 
-        //limit.setFullYear(2017);
-        //limit.setMonth(6);
-        //limit.setDate(30);
-
-        /*$scope.user = {
-         dob: dob,
-         limit: limit,
-         weight: 11,
-         height: 88,
-         pc: 54,
-         sex: 'M'
-         };*/
+        // $scope.user = {
+        //  dob: dob,
+        //  limit: limit,
+        //  weight: 12.2,
+        //  height: 87.4,
+        //  pc: 0,
+        //  sex: 'M'
+        //  };
 
         $scope.user = {
             dob: dob,
@@ -202,17 +209,6 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
             pc: '',
             sex: ''
         };
-
-        /*$scope.user = {
-         dob: undefined,
-         dob_formatted: 'DD / MM / YYYY',
-         limit: new Date(),
-         limit_formatted: moment(date).format('DD / MM / YYYY'),
-         weight: '',
-         height: '',
-         pc: '',
-         sex: ''
-         };*/
 
         $scope.showDatePicker1 = function () {
             var options = {
@@ -322,6 +318,171 @@ module.controller('CalculadoraNutricional', function ($scope, service) {
 });
 
 
+var CalculadoraNutricionalAdolecentes;
+module.controller('CalculadoraNutricionalAdolecentes', function ($scope, service) {
+
+    ons.ready(function () {
+
+        console.log('CalculadoraNutricionalAdolecentes');
+
+        lang.mujer_altura = 'Long';
+        lang.varon_altura = 'Long';
+
+        CalculadoraNutricionalAdolecentes = $scope;
+
+        var dob;
+
+        dob = new Date();
+        // dob.setFullYear(2000);
+        // dob.setMonth(5);
+        // dob.setDate(20);
+
+        limit = new Date();
+
+        //limit.setFullYear(2017);
+        //limit.setMonth(6);
+        //limit.setDate(30);
+
+        // $scope.user = {
+        //     dob: dob,
+        //     limit: new Date(),
+        //     limit_formatted: moment(date).format('DD / MM / YYYY'),
+        //     weight: 80,
+        //     height: 170,
+        //     sex: 'M',
+        //     mc: ''
+        // };
+
+        $scope.user = {
+            dob: dob,
+            dob_formatted: moment(dob).format('DD / MM / YYYY'),
+            limit: new Date(),
+            limit_formatted: moment(date).format('DD / MM / YYYY'),
+            weight: '',
+            height: '',
+            pc: '',
+            sex: ''
+        };
+
+        /*$scope.user = {
+         dob: undefined,
+         dob_formatted: 'DD / MM / YYYY',
+         limit: new Date(),
+         limit_formatted: moment(date).format('DD / MM / YYYY'),
+         weight: '',
+         height: '',
+         pc: '',
+         sex: ''
+         };*/
+
+        $scope.showDatePicker1 = function () {
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+
+            datePicker.show(options, function (date) {
+                $scope.user.dob = date;
+                $scope.user.dob_formatted = moment(date).format('DD / MM / YYYY');
+                $scope.$digest();
+            });
+        };
+
+        $scope.showDatePicker2 = function () {
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+
+            datePicker.show(options, function (date) {
+                $scope.user.limit = date;
+                $scope.user.limit_formatted = moment(date).format('DD / MM / YYYY');
+                $scope.$digest();
+            });
+        };
+
+        $scope.procesar = function () {
+
+            var weight = parseFloat($scope.user.weight);
+            var height = parseFloat($scope.user.height);
+            var pc = parseFloat($scope.user.pc);
+
+            if (isNaN(weight)) {
+                weight = 0;
+            }
+
+            if (isNaN(height)) {
+                height = 0;
+            }
+
+            if (isNaN(pc)) {
+                pc = 0;
+            }
+
+            var error = false;
+
+            var ageYears = getAge($scope.user.dob, 'years');
+
+            if ($scope.user.dob == '' || $scope.user.dob == null || $scope.user.dob == undefined) {
+
+                alert('Fecha de nacimiento es requerida');
+                return;
+
+            } else if ($scope.user.sex == '') {
+
+                alert('Sexo es requerido');
+                return;
+
+            } else if (weight <= 0 || height <= 0 /*& pc <= 0*/) {
+
+                alert('Peso, Altura son parametros requeridos');
+                return;
+
+            } else if (ageYears > 19) {
+
+                alert('No se puede realizar el procedimiento, la edad debe ser menor o igual a 19 años');
+                return;
+            }
+
+            modal.show();
+
+            $scope.user.height = height;
+            $scope.user.pc = pc;
+
+            $scope.user.mc = weight / Math.pow(height / 100, 2);
+
+            service.calculate($scope.user, function (result) {
+
+                if (result.status == 'success') {
+
+                    modal.hide();
+
+                    mainNavigator.pushPage('views/results_adolecentes.html', {
+                        data: {
+                            result: result.data,
+                            user: $scope.user,
+                            params: result.params
+                        }
+                    });
+
+                } else {
+
+                    modal.hide();
+
+                    alert('Ocurrio un problema al calcular los datos');
+                }
+
+            }, function () {
+
+                modal.hide();
+
+                alert('No se pudo conectar con el servidor');
+            });
+        };
+
+    });
+});
+
 
 var CalculadoraIMC;
 module.controller('CalculadoraIMC', function ($scope, service) {
@@ -373,7 +534,7 @@ module.controller('CalculadoraIMC', function ($scope, service) {
         $scope.procesar = function () {
 
             var weight = parseFloat($scope.user.weight);
-            var height = parseFloat($scope.user.height);
+            var height = parseFloat($scope.user.height) / 100;
 
             if (isNaN(weight)) {
                 weight = 0;
@@ -383,10 +544,6 @@ module.controller('CalculadoraIMC', function ($scope, service) {
                 height = 0;
             }
 
-            var error = false;
-
-            var ageYears = getAge($scope.user.dob, 'years');
-
             if (weight <= 0 || height <= 0) {
 
                 alert('Peso, Altura son parametros requeridos');
@@ -394,19 +551,87 @@ module.controller('CalculadoraIMC', function ($scope, service) {
 
             } else {
 
-                $scope.result = ($scope.user.weight / Math.pow($scope.user.height, 2)).toFixed(2);
+                $scope.result = (weight / Math.pow(height, 2)).toFixed(2);
             }
 
             //modal.show();
 
-            $scope.user.weight = weight;
-            $scope.user.height = height;
+            // $scope.user.weight = weight;
+            // $scope.user.height = height;
 
 
         };
 
     });
 });
+
+
+var CalculadoraGestacional;
+module.controller('CalculadoraGestacional', function ($scope, service) {
+
+    ons.ready(function () {
+
+        CalculadoraGestacional = $scope;
+
+        var dob;
+
+        dob = new Date();
+        // dob.setFullYear(2019);
+        // dob.setMonth(0);
+        // dob.setDate(13);
+
+        limit = new Date();
+
+        // limit.setFullYear(2019);
+        // limit.setMonth(6);
+        // limit.setDate(30);
+
+        // $scope.user = {
+        //     dob: dob,
+        //     limit: new Date(),
+        //     limit_formatted: moment(date).format('DD / MM / YYYY'),
+        //     weight: 80,
+        //     height: 170,
+        //     sex: 'M',
+        //     mc: ''
+        // };
+
+        $scope.user = {
+            dob: dob,
+            dob_formatted: moment(dob).format('DD / MM / YYYY'),
+            limit: new Date(),
+            limit_formatted: moment(date).format('DD / MM / YYYY'),
+        };
+
+        var params = {
+            ageDays: '',
+            ageYears: '',
+            ageMonths: '',
+            normal: 280
+        };
+
+        $scope.result = '';
+
+        $scope.procesar = function () {
+
+            $scope.result = {
+                eg: '',
+                fpp: ''
+            };
+
+            var diffinDays = moment($scope.user.limit).diff(moment($scope.user.dob), 'hours');
+
+            console.log(diffinDays);
+
+            $scope.result.eg = (diffinDays / 24 / 7).toFixed(2);
+            $scope.result.fpp = moment($scope.user.dob).add(params.normal, 'days').format('DD / MM / YYYY');
+
+            console.log(diffinDays);
+        };
+
+    });
+});
+
 
 var resultsScope;
 module.controller('Results', function ($scope, service) {
@@ -483,7 +708,8 @@ module.controller('Results', function ($scope, service) {
 
             evaluation = evalParamsSOAPS(data.user, data.params, result);
 
-            if (result.result) {
+            // if (result.result)
+            {
 
                 var result_data = {
                     name: lang[result.table_params.name],
@@ -556,30 +782,32 @@ module.controller('Results', function ($scope, service) {
                 } catch (error) {
                 }
 
-                if (result_data.text != '')
-                {
+                if (result_data.text != '') {
 
                     result_content_aicv.push(result_data);
                 }
             }
-        };
+        }
+        ;
 
 
-        $scope.showConducta = function(result) {
+        $scope.showConducta = function (result) {
 
             if (result.conducta) {
 
                 if (result.text == 'DESNUTRICION AGUDA MODERADA') {
-                //if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
-                    conducta(result.conducta, function(option){
+                    //if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
+                    conducta(result.conducta, function (option) {
 
                         if (option == 0) {
 
-                            alert(result.conducta_dnt_moderada_con_complicacion, function(){}, 'Con Complicacion');
+                            alert(result.conducta_dnt_moderada_con_complicacion, function () {
+                            }, 'Con Complicacion');
 
                         } else if (option == 1) {
 
-                            alert(result.conducta_dnt_moderada_sin_complicacion, function(){}, 'Sin Complicacion');
+                            alert(result.conducta_dnt_moderada_sin_complicacion, function () {
+                            }, 'Sin Complicacion');
                         }
 
                     });
@@ -600,6 +828,203 @@ module.controller('Results', function ($scope, service) {
     });
 });
 
+
+var resultsAdolecentesScope;
+module.controller('ResultsAdolecentes', function ($scope, service) {
+
+    ons.ready(function () {
+
+        resultsAdolecentesScope = $scope;
+
+        var data = mainNavigator.pages[mainNavigator.pages.length - 1].data;
+
+        $scope.user = data.user;
+
+        var dob = new Date($scope.user.dob);
+        //var date = data.params.actualDate;
+        var date = $scope.user.limit;
+
+        console.log(data);
+
+        var ageDays = data.params.ageDays;
+        var ageYears = parseInt(ageDays / 365);
+        var ageMonths = 0;
+
+        if (ageDays > 365 * ageYears) {
+            ageDays = ageDays - 365 * ageYears;
+            if (ageDays > 30) {
+                ageMonths = parseInt(ageDays / 30);
+            } else {
+                ageMonths = 0;
+            }
+        }
+
+        if (parseInt(ageDays / 30) > 1) {
+            ageDays = ageDays - ageMonths * 30;
+        }
+
+        if (ageYears != 1) {
+            ageYears = ageYears + ' años ';
+        } else {
+            ageYears = ageYears + ' año ';
+        }
+
+        if (ageMonths != 1) {
+            ageMonths = ageMonths + ' meses ';
+        } else {
+            ageMonths = ageMonths + ' mes ';
+        }
+
+        if (ageDays != 1) {
+            ageDays = ageDays + ' dias ';
+        } else {
+            ageDays = ageDays + ' dia ';
+        }
+
+
+        $scope.user.dateFormatted = dob.getDate() + '/' + (dob.getMonth() + 1) + '/' + dob.getFullYear();
+        $scope.user.actualDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+
+        //$scope.user.edadTXT = ageYears + ageMonths + ageDays;
+        $scope.user.edadTXT = calcularEdad(dob, date);
+
+        $scope.results = [];
+
+        console.log(data);
+
+        var result_content_soaps = [];
+        var result_content_aicv = [];
+
+        $scope.results_soaps = [];
+        $scope.results_aicv = [];
+
+        for (var i in data.result) {
+
+            result = data.result[i];
+
+            evaluation = evalParamsSOAPS(data.user, data.params, result);
+
+            //if (result.result)
+            {
+
+                var result_data = {
+                    name: lang[result.table_params.name],
+                    result: result.result,
+                    color: evaluation.color,
+                    text: evaluation.text,
+                };
+
+                try {
+                    result_data.M = parseFloat(result.row.SD0.replace(',', '.')).toFixed(1);
+                    if (result.table_params.param_name == 'peso_para_la_talla') {
+                        result_data.M = result_data.M + ' Kg';
+                    } else if (result.table_params.param_name == 'talla_para_la_edad') {
+                        result_data.M = result_data.M + ' cm';
+                    } else if (result.table_params.param_name == 'peso_para_la_edad') {
+                        result_data.M = result_data.M + ' Kg';
+                    } else if (result.table_params.param_name == 'perimetro_cefalico') {
+                        result_data.M = result_data.M + ' cm';
+                    }
+                } catch (error) {
+                }
+
+                //if (result.table_params.param_name == 'peso_para_la_talla'
+                //    || result.table_params.param_name == 'talla_para_la_edad'
+                //    || result.table_params.param_name == 'peso_para_la_edad'
+                //    || result.table_params.param_name == 'perimetro_cefalico'
+                //    || result.table_params.param_name == 'masa_corporal') {
+                //
+                //    if (result_data.text != '') {
+                //        result_content_soaps.push(result_data);
+                //    }
+                //}
+
+                //if (result_data.text != '')
+                {
+                    result_content_soaps.push(result_data);
+                }
+
+
+                /*
+                 * AICV
+                 */
+
+
+                evaluation = evalParamsAICV(data.user, data.params, result);
+
+                var result_data = {
+                    name: lang[result.table_params.name],
+                    result: result.result,
+                    color: evaluation.color,
+                    text: evaluation.text,
+                    conducta: evaluation.conducta,
+                    conducta_dnt_moderada_sin_complicacion: evaluation.conducta_dnt_moderada_sin_complicacion,
+                    conducta_dnt_moderada_con_complicacion: evaluation.conducta_dnt_moderada_con_complicacion
+                };
+
+
+                try {
+                    result_data.M = parseFloat(result.row.SD0.replace(',', '.')).toFixed(1);
+                    //peso_para_la_edad
+                    if (result.table_params.param_name == 'peso_para_la_talla') {
+                        result_data.M = result_data.M + ' Kg';
+                    } else if (result.table_params.param_name == 'talla_para_la_edad') {
+                        result_data.M = result_data.M + ' cm';
+                    } else if (result.table_params.param_name == 'peso_para_la_edad') {
+                        result_data.M = result_data.M + ' Kg';
+                    } else if (result.table_params.param_name == 'perimetro_cefalico') {
+                        result_data.M = result_data.M + ' cm';
+                    }
+                } catch (error) {
+                }
+
+                if (result_data.text != '') {
+
+                    result_content_aicv.push(result_data);
+                }
+            }
+        }
+        ;
+
+
+        $scope.showConducta = function (result) {
+
+            if (result.conducta) {
+
+                if (result.text == 'DESNUTRICION AGUDA MODERADA') {
+                    //if (result.text == 'PROBABLE RETRASO EN EL DESARROLLO') {
+                    conducta(result.conducta, function (option) {
+
+                        if (option == 0) {
+
+                            alert(result.conducta_dnt_moderada_con_complicacion, function () {
+                            }, 'Con Complicacion');
+
+                        } else if (option == 1) {
+
+                            alert(result.conducta_dnt_moderada_sin_complicacion, function () {
+                            }, 'Sin Complicacion');
+                        }
+
+                    });
+
+                } else {
+
+                    alert(result.conducta);
+                }
+
+            }
+
+            console.log(result);
+        };
+
+        $scope.results_soaps = result_content_soaps;
+        $scope.results_aicv = result_content_aicv;
+
+    });
+});
+
+
 function evalParamsSOAPS(user, params, result) {
 
     var text = '';
@@ -612,8 +1037,7 @@ function evalParamsSOAPS(user, params, result) {
 
     switch (result.table_params.param_name) {
 
-        case 'peso_para_la_talla':
-        {
+        case 'peso_para_la_talla': {
 
             if ((age <= 2) || (age > 2 && age <= 5)) {
 
@@ -647,8 +1071,7 @@ function evalParamsSOAPS(user, params, result) {
             break;
         }
 
-        case 'talla_para_la_edad':
-        {
+        case 'talla_para_la_edad': {
 
             if ((age <= 2) || (age > 2 && age <= 5)) {
 
@@ -686,8 +1109,7 @@ function evalParamsSOAPS(user, params, result) {
             break;
         }
 
-        case 'peso_para_la_edad':
-        {
+        case 'peso_para_la_edad': {
 
             if ((age <= 2) || (age > 2 && age <= 5)) {
 
@@ -712,8 +1134,7 @@ function evalParamsSOAPS(user, params, result) {
             break;
         }
 
-        case 'perimetro_cefalico':
-        {
+        case 'perimetro_cefalico': {
 
             if (age >= 0 && age <= 5) {
 
@@ -738,8 +1159,7 @@ function evalParamsSOAPS(user, params, result) {
             break;
         }
 
-        case 'masa_corporal':
-        {
+        case 'masa_corporal': {
             if (age >= 5 && age <= 19) {
 
                 if (result.result >= 2.01) {
@@ -801,10 +1221,12 @@ function evalParamsAICV(user, params, result) {
 
     var age = parseFloat((params.ageMonths / 12).toFixed(1));
 
+    console.log('**************');
+    console.log(result.table_params.param_name);
+
     switch (result.table_params.param_name) {
 
-        case 'peso_para_la_edad':
-        {
+        case 'peso_para_la_edad': {
 
             if (params.ageDays <= 7) {
 
@@ -953,8 +1375,7 @@ function evalParamsAICV(user, params, result) {
             break;
         }
 
-        case 'perimetro_cefalico':
-        {
+        case 'perimetro_cefalico': {
 
             if (age >= 0 && age <= 5) {
 
@@ -990,8 +1411,7 @@ function evalParamsAICV(user, params, result) {
             break;
         }
 
-        case 'talla_para_la_edad':
-        {
+        case 'talla_para_la_edad': {
 
             if ((params.ageMonths >= 6 && params.ageMonths <= 24)) {
 
@@ -1029,8 +1449,7 @@ function evalParamsAICV(user, params, result) {
             break;
         }
 
-        case 'peso_para_la_talla':
-        {
+        case 'peso_para_la_talla': {
 
             if ((params.ageMonths >= 2 && age <= 5)) {
 
@@ -1122,36 +1541,68 @@ function evalParamsAICV(user, params, result) {
             break;
         }
 
-        case 'masa_corporal':
-        {
-            if ((age >= 5 && age <= 12)) {
+        case 'masa_corporal': {
+            if ((age >= 5 && age <= 19)) {
 
                 if (result.result >= 2.01) {
 
                     text = 'OBESIDAD';
                     color = 'azul';
+                    conducta = '\
+                    • Referir al hospital para valoracion y manejo integral<br>\
+                    • Realizar recomendaciones generales<br>\
+                    • Evaluar salud oral<br>\
+                    ';
 
                 } else if (result.result >= 1.01 && result.result <= 2.00) {
 
                     text = 'SOBREPESO';
                     color = 'celeste';
+                    conducta = '\
+                    • Realizar encuesta alimentaria<br>\
+                    • Recomendaciones para sobrepeso<br>\
+                    • Evaluar salud oral<br>\
+                    • Promocionar estilos de vida saludable, prevencion de accidentes y violencia<br>\
+                    • Visita de seguimiento en 30 dias<br>\
+                    ';
 
                 } else if (result.result >= -2.00 && result.result <= 1.00) {
 
                     text = 'NO TIENE DNT NI OBESIDAD/SOBREPESO';
                     color = 'verde';
+                    conducta = '\
+                    • Dar recomendacion general para la alimentacion<br>\
+                    • Dar albendazol 400mg via oral dosis unica o mebendazol 500mg dosis unica<br>\
+                    • Promocionar estilos de vida saludable, prevencion de accidentes y violencia<br>\
+                    • Evaluar salud oral<br>\
+                    • Visita de seguimiento en 3 meses <br>\
+                    ';
 
                 } else if (result.result >= -3.00 && result.result <= -2.01) {
 
                     text = 'DESNUTRICION Y/O ANEMIA';
                     color = 'naranja';
+                    conducta = '\
+                    • Realizar encuesta alimentaria<br>\
+                    • Dar recomendacion general para la alimentacion<br>\
+                    • Administrar hierro<br>\
+                    • Dar albendazol 400mg via oral dosis unica o mebendazol 500mg dosis unica<br>\
+                    • Evaluar salud oral<br>\
+                    • Visita de seguimiento en 15 dias <br>\
+                    ';
 
                 } else if (result.result <= -3.01) {
 
                     text = 'DNT GRAVE Y/O ANEMIA GRAVE';
                     color = 'rojo';
+                    conducta = '\
+                    • Referir urgentemente al hospital, siguiendo las recomendaciones para el transporte.\
+                    ';
                 }
             }
+
+            console.log("MC ************");
+            console.log(result.result);
 
             break;
         }
