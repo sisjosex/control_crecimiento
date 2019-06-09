@@ -46,7 +46,7 @@
         </config-file>
     </platform>
     <platform name="windows">
-        <preference name="windows-target-version" value="10.0" />
+        <preference name="windows-target-version" value="27" />
         <preference name="target-device" value="universal" />
         <preference name="Windows.Universal-MinVersion" value="10.0.0.0" />
     </platform>
@@ -59,13 +59,13 @@
     <engine name="ios" spec="latest" />
     <engine name="windows" spec="latest" />
 
-<!--    <feature name="DatePicker">-->
-<!--        <param name="ios-package" value="DatePicker"/>-->
-<!--    </feature>-->
+    <feature name="DatePicker">
+        <param name="ios-package" value="DatePicker"/>
+    </feature>
 
-<!--    <feature name="DatePickerPlugin">-->
-<!--        <param name="android-package" value="com.sharinglabs.cordova.plugin.datepicker.DatePickerPlugin"/>-->
-<!--    </feature>-->
+    <feature name="DatePickerPlugin">
+        <param name="android-package" value="com.sharinglabs.cordova.plugin.datepicker.DatePickerPlugin"/>
+    </feature>
 
 </widget>
 
