@@ -18,6 +18,7 @@
     <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="cordova.plugins.diagnostic.modules" value="LOCATION BLUETOOTH WIFI CAMERA NOTIFICATIONS MICROPHONE CONTACTS CALENDAR REMINDERS MOTION NFC EXTERNAL_STORAGE" />
 
+    <preference name="android-targetSdkVersion" value="27" />
     <platform name="android">
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -46,7 +47,7 @@
         </config-file>
     </platform>
     <platform name="windows">
-        <preference name="windows-target-version" value="27" />
+        <preference name="windows-target-version" value="10.0" />
         <preference name="target-device" value="universal" />
         <preference name="Windows.Universal-MinVersion" value="10.0.0.0" />
     </platform>
