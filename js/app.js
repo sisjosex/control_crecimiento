@@ -578,7 +578,7 @@ module.controller('CalculadoraGestacional', function ($scope, service) {
         dob = new Date();
         // dob.setFullYear(2019);
         // dob.setMonth(0);
-        // dob.setDate(13);
+        // dob.setDate(9);
 
         limit = new Date();
 
@@ -647,9 +647,7 @@ module.controller('CalculadoraGestacional', function ($scope, service) {
 
             var diffinDays = moment($scope.user.limit).diff(moment($scope.user.dob), 'hours');
 
-            console.log(diffinDays);
-
-            $scope.result.eg = (diffinDays / 24 / 7).toFixed(2);
+            $scope.result.eg = parseInt(Math.trunc(diffinDays / 24 / 7));
             $scope.result.fpp = moment($scope.user.dob).add(params.normal, 'days').format('DD / MM / YYYY');
 
             console.log(diffinDays);
