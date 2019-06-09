@@ -612,6 +612,32 @@ module.controller('CalculadoraGestacional', function ($scope, service) {
 
         $scope.result = '';
 
+        $scope.showDatePicker1 = function () {
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+
+            datePicker.show(options, function (date) {
+                $scope.user.dob = date;
+                $scope.user.dob_formatted = moment(date).format('DD / MM / YYYY');
+                $scope.$digest();
+            });
+        };
+
+        $scope.showDatePicker2 = function () {
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+
+            datePicker.show(options, function (date) {
+                $scope.user.limit = date;
+                $scope.user.limit_formatted = moment(date).format('DD / MM / YYYY');
+                $scope.$digest();
+            });
+        };
+
         $scope.procesar = function () {
 
             $scope.result = {
