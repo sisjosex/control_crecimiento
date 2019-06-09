@@ -18,8 +18,10 @@
     <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="cordova.plugins.diagnostic.modules" value="LOCATION BLUETOOTH WIFI CAMERA NOTIFICATIONS MICROPHONE CONTACTS CALENDAR REMINDERS MOTION NFC EXTERNAL_STORAGE" />
 
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+
     <platform name="android">
-        <preference name="android-targetSdkVersion" value="28" />
+        <preference name="android-targetSdkVersion" value="27" />
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.BLUETOOTH" />
             <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -51,7 +53,7 @@
         <preference name="target-device" value="universal" />
         <preference name="Windows.Universal-MinVersion" value="10.0.0.0" />
     </platform>
-    <plugin name="cordova-plugin-whitelist" spec="*" />
+<!--    <plugin name="cordova-plugin-whitelist" spec="*" />-->
     <plugin name="cordova.plugins.diagnostic" spec="*" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
