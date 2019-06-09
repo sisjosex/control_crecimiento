@@ -20,10 +20,10 @@
 
     <!-- Define app icon for each platform. -->
     <icon src="res/icon/android/icon-96-xhdpi.png" />
-    <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:qualifier="ldpi" />
-    <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:qualifier="mdpi" />
-    <icon src="res/icon/android/icon-72-hdpi.png"   gap:platform="android"    gap:qualifier="hdpi" />
-    <icon src="res/icon/android/icon-96-xhdpi.png"  gap:platform="android"    gap:qualifier="xhdpi" />
+    <icon src="res/icon/android/icon-36-ldpi.png"   platform="android"    qualifier="ldpi" />
+    <icon src="res/icon/android/icon-48-mdpi.png"   platform="android"    qualifier="mdpi" />
+    <icon src="res/icon/android/icon-72-hdpi.png"   platform="android"    qualifier="hdpi" />
+    <icon src="res/icon/android/icon-96-xhdpi.png"  platform="android"    qualifier="xhdpi" />
 
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
