@@ -61,6 +61,7 @@
 <!--    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />-->
 <!--    <plugin name="cordova-plugin-device" spec="^2.0.1" />-->
 <!--    <plugin name="cordova-plugin-file" spec="^6.0.1" />-->
+    <plugin name="cordova-plugin-datepicker" source="npm" />
 
     <engine name="android" spec="latest" />
     <engine name="ios" spec="latest" />
