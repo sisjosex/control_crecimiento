@@ -56,10 +56,12 @@
         <preference name="Windows.Universal-MinVersion" value="10.0.0.0" />
     </platform>
 <!--    <plugin name="cordova-plugin-whitelist" spec="*" />-->
-    <plugin name="cordova.plugins.diagnostic" spec="*" />
-    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
-    <plugin name="cordova-plugin-device" spec="^2.0.1" />
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+
+<!--    <plugin name="cordova.plugins.diagnostic" spec="*" />-->
+<!--    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />-->
+<!--    <plugin name="cordova-plugin-device" spec="^2.0.1" />-->
+<!--    <plugin name="cordova-plugin-file" spec="^6.0.1" />-->
+
     <engine name="android" spec="latest" />
     <engine name="ios" spec="latest" />
     <engine name="windows" spec="latest" />
