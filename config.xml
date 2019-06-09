@@ -22,9 +22,13 @@
 
     <preference name="android-minSdkVersion" value="27" />
 
+    <preference name="android-minSdkVersion" value="10" />
+    <preference name="android-targetSdkVersion" value="28" />
+
     <platform name="android">
-        <preference name="android-minSdkVersion" value="27" />
-        <preference name="android-targetSdkVersion" value="27" />
+        <preference name="android-minSdkVersion" value="10" />
+        <preference name="android-targetSdkVersion" value="28" />
+
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.BLUETOOTH" />
             <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
