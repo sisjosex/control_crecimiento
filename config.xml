@@ -20,6 +20,8 @@
 
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
+    <preference name="android-minSdkVersion" value="27" />
+
     <platform name="android">
         <preference name="android-minSdkVersion" value="27" />
         <preference name="android-targetSdkVersion" value="27" />
