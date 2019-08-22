@@ -765,7 +765,7 @@ table.explanation th {
     background: #2fa0c0;
     color: #fff;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
     padding: 10px;
 }
 
@@ -817,4 +817,6 @@ table.explanation tr:nth-child(odd) {
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
+    right: 10px;
+    text-align: center;
 }
