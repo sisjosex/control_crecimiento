@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.josex.controlmedico"
+<widget id="com.grover.controlmedico"
         version="2.0.0"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,8 +9,8 @@
 
     </description>
 
-    <author email="sisjosex@gmail.com" href="">
-        Dave Alden
+    <author email="grover@gmail.com" href="">
+        Dr. Grover Ayaviri Perez
     </author>
     <content src="index.html" />
     <access origin="*" />

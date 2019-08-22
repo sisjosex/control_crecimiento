@@ -806,3 +806,15 @@ table.explanation tr:nth-child(odd) {
 .color.green {
     background: #8cc34b;
 }
+
+.copy-right {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000000000;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
